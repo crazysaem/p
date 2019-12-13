@@ -18,8 +18,10 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "npx parcel public/index.html",
-    "build": "npx parcel build public/index.html"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,8 +37,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "parcel-bundler": "^1.12.4"
   }
 }
