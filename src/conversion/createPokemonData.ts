@@ -10,6 +10,8 @@ import {
 import { en as weatherEn, de as weatherDe } from "../l10n/weather";
 
 export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
+  const chanceType = isOverworld ? "Overworld" : "Rare";
+
   const locationRegex = /[0-9]+ - ([A-Za-z].*)\:/;
   const weatherLevelRegex = /([A-Za-z ]*) \(Lv\. ([0-9]+\-[0-9]+)\)\:/;
   const pokemonRegex = /\t\t- ([A-Z][a-z]+)\s*([0-9]{2,3})%/;
@@ -45,12 +47,25 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
           location => location.name === locationName
         );
         if (!!location) {
-          location.weatherTypes.push(weatherType);
+          if (location.weatherTypes.indexOf(weatherType) < 0) {
+            location.weatherTypes.push(weatherType);
+          }
+
+          const chanceIndex = location.chances.findIndex(
+            chance => chance.number === `${pokemonChance}%`
+          );
+
+          if (chanceIndex < 0) {
+            location.chances.push({
+              number: `${pokemonChance}%`,
+              type: chanceType
+            });
+          }
         } else {
           pokemon.locations.push({
             name: locationName,
             level,
-            chance: `${pokemonChance}%`,
+            chances: [{ number: `${pokemonChance}%`, type: chanceType }],
             weatherTypes: [weatherType]
           });
         }
@@ -60,11 +75,12 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
         pokemons.set(pokemonName, {
           name: pokemonName,
           galarIndex,
+          search: `${galarIndex}: ${pokemonName}`,
           locations: [
             {
               name: locationName,
               level,
-              chance: `${pokemonChance}%`,
+              chances: [{ number: `${pokemonChance}%`, type: chanceType }],
               weatherTypes: [weatherType]
             }
           ]

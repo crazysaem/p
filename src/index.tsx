@@ -14,10 +14,10 @@ createPokemonData(pokemons, false);
 let pokemonsArray: Array<Pokemon> = [];
 pokemons.forEach(pokemon => pokemonsArray.push(pokemon));
 pokemonsArray = pokemonsArray.sort((a, b) => {
-  if (a.name < b.name) {
+  if (a.search < b.search) {
     return -1;
   }
-  if (a.name > b.name) {
+  if (a.search > b.search) {
     return 1;
   }
   return 0;
