@@ -14,6 +14,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Chip from "@material-ui/core/Chip";
 import Divider from "@material-ui/core/Divider";
+import Box from "@material-ui/core/Box";
 
 const App = (props: { pokemons: Array<Pokemon> }) => {
   const [index, setIndex] = useState(-1);
@@ -21,12 +22,11 @@ const App = (props: { pokemons: Array<Pokemon> }) => {
   const pokemon = index >= 0 ? props.pokemons[index] : undefined;
 
   return (
-    <div className="App">
+    <Box p={2} m={1}>
       <Autocomplete
         id="combo-box-demo"
         options={props.pokemons}
         getOptionLabel={(option: Pokemon) => option.search}
-        style={{ width: 300 }}
         renderInput={params => (
           <TextField {...params} label="Pokemon" variant="outlined" fullWidth />
         )}
@@ -77,7 +77,7 @@ const App = (props: { pokemons: Array<Pokemon> }) => {
           </Paper>
         </>
       )}
-    </div>
+    </Box>
   );
 };
 
