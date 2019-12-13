@@ -1,23 +1,25 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+import { Pokemon } from "./types";
+import createPokemonData from "./conversion/createPokemonData";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.register();
 
+let pokemons = new Map<string, Pokemon>();
 
 const main = async () => {
-    const overworld = await fetch('/Encounters_Overworld_Sword.txt');
-    const rare = await fetch('/Encounters_Rare_Sword.txt');
+  createPokemonData(pokemons, true);
+  createPokemonData(pokemons, false);
 
-    console.log(overworld);
-    console.log(rare);
-}
+  console.log(pokemons);
+};
 
 main();

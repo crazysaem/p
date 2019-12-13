@@ -1,3 +1,4 @@
+export default `
 000 - Route 1:
 	Normal Weather (Lv. 3-6):
 		- Skwovet     	38%
@@ -3505,6 +3506,6 @@
 		- Wailmer     	40%
 		- Mantyke     	35%
 		- Remoraid    	15%
-		- Mantine     	10%
+		- Mantine     	10%`;
 		
 

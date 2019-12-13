@@ -1,3 +1,4 @@
+export default `
 000 - Route 1:
 	Normal Weather (Lv. 2-5):
 		- Skwovet     	35%
@@ -2922,6 +2923,6 @@
 	Fishing (Lv. 45-47):
 		- Whiscash    	60%
 		- Barboach    	20%
-		- Magikarp    	20%
+		- Magikarp    	20%`;
 		
 
