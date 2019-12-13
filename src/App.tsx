@@ -48,7 +48,14 @@ const App = (props: { pokemons: Array<Pokemon> }) => {
               <TableBody>
                 <TableRow>
                   <TableCell>{pokemon.galarIndex}</TableCell>
-                  <TableCell>{pokemon.name}</TableCell>
+                  <TableCell>
+                    <a
+                      href={`https://www.pokewiki.de/index.php?search=${pokemon.name}`}
+                      target="_blank"
+                    >
+                      {pokemon.name}
+                    </a>
+                  </TableCell>
                 </TableRow>
               </TableBody>
             </Table>
@@ -60,11 +67,31 @@ const App = (props: { pokemons: Array<Pokemon> }) => {
                 <>
                   <ListItem key={i} alignItems="flex-start">
                     <ListItemText
-                      primary={`${location.name}, Lvl: ${location.level}`}
-                      secondary={
+                      primary={
                         <span>
+                          <a
+                            href={`https://bulbapedia.bulbagarden.net/w/index.php?search=${location.name
+                              .replace(/\(.*\)/gi, "")
+                              .replace("Route", "Galar Route")}`}
+                            target="_blank"
+                          >
+                            {location.name}
+                          </a>
+                          &nbsp;Lvl: {location.level}
+                          &nbsp;
+                          {location.chances
+                            .map(chance => `${chance.number}${chance.type[0]}`)
+                            .join(", ")}
+                        </span>
+                      }
+                      secondary={
+                        <span style={{ display: "flex", flexWrap: "wrap" }}>
                           {location.weatherTypes.map(weather => (
-                            <Chip key={weather} label={weather} />
+                            <Chip
+                              key={weather}
+                              label={weather}
+                              style={{ margin: "2px" }}
+                            />
                           ))}
                         </span>
                       }
