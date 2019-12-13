@@ -31,7 +31,8 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
     const weatherLevelResult = weatherLevelRegex.exec(line);
     if (!!weatherLevelResult) {
       weatherType = weatherLevelResult[1];
-      weatherType = weatherDe[weatherEn.indexOf(weatherType)];
+      const weatherTypeDe = weatherDe[weatherEn.indexOf(weatherType)];
+      weatherType = weatherTypeDe ? weatherTypeDe : weatherType;
       level = weatherLevelResult[2];
     }
 

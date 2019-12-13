@@ -12,7 +12,7 @@ const App = (props: { pokemons: Array<Pokemon> }) => {
       <Autocomplete
         id="combo-box-demo"
         options={props.pokemons}
-        getOptionLabel={(option: Pokemon) => option.name}
+        getOptionLabel={(option: Pokemon) => option.search}
         style={{ width: 300 }}
         renderInput={params => (
           <TextField {...params} label="Pokemon" variant="outlined" fullWidth />
