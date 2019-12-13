@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { Pokemon } from "./types";
+import TextField from "@material-ui/core/TextField";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
-const App: React.FC = () => {
+const App = (props: { pokemons: Array<Pokemon> }) => {
+  const [index, setIndex] = useState(-1);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Autocomplete
+        id="combo-box-demo"
+        options={props.pokemons}
+        getOptionLabel={(option: Pokemon) => option.name}
+        style={{ width: 300 }}
+        renderInput={params => (
+          <TextField {...params} label="Pokemon" variant="outlined" fullWidth />
+        )}
+        onChange={(_event, pokemon: Pokemon) => {
+          setIndex(props.pokemons.indexOf(pokemon));
+        }}
+      />
+      {index >= 0 && <div>{JSON.stringify(props.pokemons[index])}</div>}
     </div>
   );
-}
+};
 
 export default App;

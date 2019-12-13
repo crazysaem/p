@@ -2924,5 +2924,3 @@ export default `
 		- Whiscash    	60%
 		- Barboach    	20%
 		- Magikarp    	20%`;
-		
-

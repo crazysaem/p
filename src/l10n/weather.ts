@@ -2,7 +2,7 @@ export const en = [
   "Snowstorm",
   "Overcast",
   "Sandstorm",
-  "Normal Weather ",
+  "Normal Weather",
   "Heavy Fog",
   "Intense Sun",
   "Raining",

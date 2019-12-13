@@ -2,10 +2,17 @@ import overworld from "../raw/Encounters_Overworld_Sword";
 import rare from "../raw/Encounters_Rare_Sword";
 import { Pokemon } from "../types";
 
+import {
+  en as pokemonEn,
+  de as pokemonDe,
+  deGalarIndex
+} from "../l10n/pokemonNames";
+import { en as weatherEn, de as weatherDe } from "../l10n/weather";
+
 export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
   const locationRegex = /[0-9]+ - ([A-Za-z].*)\:/;
   const weatherLevelRegex = /([A-Za-z ]*) \(Lv\. ([0-9]+\-[0-9]+)\)\:/;
-  const pokemonRegex = /\t\t- ([A-Z][a-z]+).*([0-9]{2})%/;
+  const pokemonRegex = /\t\t- ([A-Z][a-z]+)\s*([0-9]{2,3})%/;
 
   const lines = isOverworld ? overworld.split("\n") : rare.split("\n");
 
@@ -22,12 +29,14 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
     const weatherLevelResult = weatherLevelRegex.exec(line);
     if (!!weatherLevelResult) {
       weatherType = weatherLevelResult[1];
+      weatherType = weatherDe[weatherEn.indexOf(weatherType)];
       level = weatherLevelResult[2];
     }
 
     const pokemonResult = pokemonRegex.exec(line);
     if (!!pokemonResult) {
-      const pokemonName = pokemonResult[1];
+      let pokemonName = pokemonResult[1];
+      pokemonName = pokemonDe[pokemonEn.indexOf(pokemonName)];
       const pokemonChance = pokemonResult[2];
 
       const pokemon = pokemons.get(pokemonName);
@@ -46,14 +55,16 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
           });
         }
       } else {
+        const galarIndex = deGalarIndex.indexOf(pokemonName);
+
         pokemons.set(pokemonName, {
           name: pokemonName,
-          encounter: isOverworld ? "overworld" : "rare",
+          galarIndex,
           locations: [
             {
               name: locationName,
               level,
-              chance: pokemonChance,
+              chance: `${pokemonChance}%`,
               weatherTypes: [weatherType]
             }
           ]
