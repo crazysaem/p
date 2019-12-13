@@ -12,7 +12,7 @@ export interface Location {
 
 export interface Pokemon {
   name: string;
-  galarIndex: number;
+  galarIndex: string;
   search: string;
   locations: Array<Location>;
 }

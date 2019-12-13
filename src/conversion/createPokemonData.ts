@@ -71,7 +71,10 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
           });
         }
       } else {
-        const galarIndex = deGalarIndex.indexOf(pokemonName);
+        let galarIndex = `${deGalarIndex.indexOf(pokemonName) + 1}`.padStart(
+          3,
+          "0"
+        );
 
         pokemons.set(pokemonName, {
           name: pokemonName,
