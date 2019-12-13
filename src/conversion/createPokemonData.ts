@@ -48,26 +48,30 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
           location => location.name === locationName
         );
         if (!!location) {
-          if (location.weatherTypes.indexOf(weatherType) < 0) {
-            location.weatherTypes.push(weatherType);
-          }
-
-          const chanceIndex = location.chances.findIndex(
-            chance => chance.number === `${pokemonChance}%`
-          );
-
-          if (chanceIndex < 0) {
-            location.chances.push({
-              number: `${pokemonChance}%`,
-              type: chanceType
+          if (
+            location.weatherTypes.findIndex(w => w.name === weatherType) < 0
+          ) {
+            location.weatherTypes.push({
+              name: weatherType,
+              chance: {
+                number: `${pokemonChance}%`,
+                type: chanceType
+              }
             });
           }
         } else {
           pokemon.locations.push({
             name: locationName,
             level,
-            chances: [{ number: `${pokemonChance}%`, type: chanceType }],
-            weatherTypes: [weatherType]
+            weatherTypes: [
+              {
+                name: weatherType,
+                chance: {
+                  number: `${pokemonChance}%`,
+                  type: chanceType
+                }
+              }
+            ]
           });
         }
       } else {
@@ -84,8 +88,15 @@ export default (pokemons: Map<string, Pokemon>, isOverworld: boolean) => {
             {
               name: locationName,
               level,
-              chances: [{ number: `${pokemonChance}%`, type: chanceType }],
-              weatherTypes: [weatherType]
+              weatherTypes: [
+                {
+                  name: weatherType,
+                  chance: {
+                    number: `${pokemonChance}%`,
+                    type: chanceType as any
+                  }
+                }
+              ]
             }
           ]
         });

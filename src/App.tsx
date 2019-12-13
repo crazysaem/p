@@ -78,18 +78,14 @@ const App = (props: { pokemons: Array<Pokemon> }) => {
                             {location.name}
                           </a>
                           &nbsp;Lvl: {location.level}
-                          &nbsp;
-                          {location.chances
-                            .map(chance => `${chance.number}${chance.type[0]}`)
-                            .join(", ")}
                         </span>
                       }
                       secondary={
                         <span style={{ display: "flex", flexWrap: "wrap" }}>
                           {location.weatherTypes.map(weather => (
                             <Chip
-                              key={weather}
-                              label={weather}
+                              key={weather.name}
+                              label={`${weather.name} ${weather.chance.number}${weather.chance.type[0]}`}
                               style={{ margin: "2px" }}
                             />
                           ))}
